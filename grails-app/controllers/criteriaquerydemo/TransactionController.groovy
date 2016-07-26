@@ -5,7 +5,7 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class TransactionController {
 
- def transcationsService
+    def transcationsService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -15,10 +15,10 @@ class TransactionController {
 
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        List transactions=[]
-        Long manufacturerId=Long.parseLong("1")
+        List transactions = []
+        Long manufacturerId = Long.parseLong("1")
 //        transactions=transcationsService.printingTransactionsWithACompanyId(manufacturerId)
-        transactions=transcationsService.printingTransactionsWithACompanyIdviaProjections(manufacturerId)
+        transactions = transcationsService.printingTransactionsWithACompanyIdviaProjections(manufacturerId)
 
         [transactionInstanceList: transactions, transactionInstanceTotal: Transaction.count()]
     }
@@ -71,8 +71,8 @@ class TransactionController {
         if (version != null) {
             if (transactionInstance.version > version) {
                 transactionInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'transaction.label', default: 'Transaction')] as Object[],
-                          "Another user has updated this Transaction while you were editing")
+                        [message(code: 'transaction.label', default: 'Transaction')] as Object[],
+                        "Another user has updated this Transaction while you were editing")
                 render(view: "edit", model: [transactionInstance: transactionInstance])
                 return
             }

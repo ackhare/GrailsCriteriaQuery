@@ -14,9 +14,15 @@ class ProductController {
 
     def list(Integer max) {
 
-        productService.allProducts
-        params.max = Math.min(max ?: 10, 100)
-        [productInstanceList: Product.list(), productInstanceTotal: Product.count()]
+        def criteria = Product.createCriteria()
+        def result = criteria.list {
+            projections {
+                sum('salesPrice')
+            }
+        }
+        render result
+        println "The average age is ${result[0]}"
+        [productInstanceList: productService.allProducts, productInstanceTotal: Product.count()]
     }
 
     def create() {

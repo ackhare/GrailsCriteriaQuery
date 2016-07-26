@@ -5,17 +5,15 @@ class ProductService {
     def getAllProducts() {
 
 
-
-     def products=   Product.createCriteria().list{
+        def products = Product.createCriteria().list {
             and {
-            eq('name', 'PC')
-           eq('salesPrice', 23.00)
+//            eq('name', 'PC')
+                lt('salesPrice', 23.00)
+            }
+
+
         }
-
-
-
-        }
-println products
+        return products
 
     }
 }

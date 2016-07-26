@@ -20,32 +20,26 @@ class TranscationsService {
         }
 
 
-    return transactions
-}
+        return transactions
+    }
 
 
     def printingTransactionsWithACompanyIdviaProjections(Long companyId) {
         List transactions = []
 
-      def   atransactions = Transaction.createCriteria()
-        
-       transactions= atransactions.list {
-//    projections {
-//        groupProperty 'product'
-//        sum 'quantity'
-//    }
+        def atransactions = Transaction.createCriteria()
 
-    product {
-        manufacturer {
-            eq 'id', companyId
+        transactions = atransactions.list {
+            product {
+                manufacturer {
+                    eq 'id', companyId
+                }
+            }
         }
-    }
-}
 
-println transactions
+        println transactions
         return transactions
     }
-
 
 
 }
