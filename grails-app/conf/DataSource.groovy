@@ -12,10 +12,28 @@ hibernate {
 // environment specific settings
 environments {
     development {
-        dataSource {
-            dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
-        }
+
+    dataSource {
+      // DO NOT CHANGE THESE
+      // USE ${userHome}/.grails/docreg-dataSource-config.properties for custom settings
+      logSql = false
+      username = "root"
+      password = "admin"
+      dbCreate = "update"
+      driverClassName = "com.mysql.jdbc.Driver"
+      url = "jdbc:mysql://localhost/CriteriaDemoDb?zeroDateTimeBehavior=convertToNull"
+      dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+      properties {
+        maxActive = 50
+        maxIdle = 25
+        minIdle = 5
+        initialSize = 5
+        minEvictableIdleTimeMillis = 60000
+        timeBetweenEvictionRunsMillis = 60000
+        maxWait = 10000
+        validationQuery = "/* ping */"
+      }
+    }
     }
     test {
         dataSource {

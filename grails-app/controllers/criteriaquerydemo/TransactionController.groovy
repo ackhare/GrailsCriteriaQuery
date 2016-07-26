@@ -1,8 +1,11 @@
 package criteriaquerydemo
 
+import org.hibernate.FetchMode
 import org.springframework.dao.DataIntegrityViolationException
 
 class TransactionController {
+
+ def transcationsService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -12,7 +15,12 @@ class TransactionController {
 
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        [transactionInstanceList: Transaction.list(params), transactionInstanceTotal: Transaction.count()]
+        List transactions=[]
+        Long manufacturerId=Long.parseLong("1")
+//        transactions=transcationsService.printingTransactionsWithACompanyId(manufacturerId)
+        transactions=transcationsService.printingTransactionsWithACompanyIdviaProjections(manufacturerId)
+
+        [transactionInstanceList: transactions, transactionInstanceTotal: Transaction.count()]
     }
 
     def create() {

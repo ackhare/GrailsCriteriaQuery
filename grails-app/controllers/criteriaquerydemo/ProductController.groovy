@@ -4,6 +4,8 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class ProductController {
 
+    def productService
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -11,6 +13,8 @@ class ProductController {
     }
 
     def list(Integer max) {
+
+        productService.allProducts
         params.max = Math.min(max ?: 10, 100)
         [productInstanceList: Product.list(), productInstanceTotal: Product.count()]
     }

@@ -4,6 +4,7 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class CompanyController {
 
+def companyService
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -11,10 +12,12 @@ class CompanyController {
     }
 
     def list(Integer max) {
+        List companies=[]
+        companies=companyService.allCompany
         params.max = Math.min(max ?: 10, 100)
 
         println Company.list(params)
-        [companyInstanceList: Company.list(params), companyInstanceTotal: Company.count()]
+        [companyInstanceList: companies, companyInstanceTotal: Company.count()]
     }
 
     def create() {

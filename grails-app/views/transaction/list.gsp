@@ -31,7 +31,7 @@
 						<g:sortableColumn property="salesDate" title="${message(code: 'transaction.salesDate.label', default: 'Sales Date')}" />
 					
 						<th><g:message code="transaction.store.label" default="Store" /></th>
-					
+						<th>Company</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -45,6 +45,7 @@
 						<td><g:formatDate date="${transactionInstance.salesDate}" /></td>
 					
 						<td>${fieldValue(bean: transactionInstance, field: "store")}</td>
+						<td>${fieldValue(bean: transactionInstance, field: "product.manufacturer")}</td>
 					
 					</tr>
 				</g:each>
